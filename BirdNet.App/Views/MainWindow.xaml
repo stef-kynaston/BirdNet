@@ -1,0 +1,25 @@
+﻿<ui:FluentWindow
+    Background="{DynamicResource MaterialDesignPaper}"
+    Height="450"
+    Title="MainWindow"
+    Width="800"
+    d:DataContext="{d:DesignInstance viewModels:MainWindowViewModel,
+                                     IsDesignTimeCreatable=True}"
+    mc:Ignorable="d"
+    x:Class="BirdNet.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:viewModels="clr-namespace:BirdNet.ViewModels"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <StackPanel>
+        <ui:TitleBar Title="WPF UI" />
+        <ui:Card Margin="8">
+            <ui:Button Content="Hello World" Icon="{ui:SymbolIcon Fluent24}" />
+        </ui:Card>
+
+        <ContentControl Content="{Binding CurrentPage}" />
+    </StackPanel>
+</ui:FluentWindow>
