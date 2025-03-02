@@ -19,6 +19,7 @@
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="9.0.2" />
+      <PackageReference Include="Microsoft.Extensions.Hosting" Version="9.0.2" />
       <PackageReference Include="WPF-UI" Version="4.0.2" />
     </ItemGroup>
 
@@ -28,11 +29,6 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Data\Entities\" />
-      <Folder Include="Services\" />
     </ItemGroup>
 
 </Project>
