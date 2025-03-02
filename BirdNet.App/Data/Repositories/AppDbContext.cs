@@ -3,13 +3,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BirdNet.Data.Repositories;
 
-public class AppDbContext : DbContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {
     public DbSet<Order> Orders { get; set; }
     public DbSet<Family> Families { get; set; }
     public DbSet<Genus> Genera { get; set; }
     public DbSet<Species> Species { get; set; }
-
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Order>(

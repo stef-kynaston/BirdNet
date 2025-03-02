@@ -13,7 +13,7 @@ public class Species
     public string Id { get; set; } = null!;
 
     [Column("name")]
-    public string Name { get; set; } = null!;
+    public string ScientificName { get; set; } = null!;
 
     [Column("description")]
     public string Description { get; set; } = null!;
