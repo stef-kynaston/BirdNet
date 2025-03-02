@@ -12,4 +12,9 @@ public partial class MainWindow
         
         ApplicationThemeManager.Apply(this);
     }
+
+  private void Button_Click(object sender, System.Windows.RoutedEventArgs e)
+  {
+
+  }
 }
