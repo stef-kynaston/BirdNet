@@ -1,38 +1,52 @@
-using System.Collections.ObjectModel;
 using BirdNet.Data.Entities;
 using BirdNet.Services;
-using CommunityToolkit.Mvvm.Input;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BirdNet.ViewModels;
 
-public partial class MainWindowViewModel : BaseViewModel
+public partial class MainWindowViewModel : ObservableObject
 {
-  private readonly BirdSearchService _birdSearchService;
+    private readonly BirdSearchService _birdSearchService;
 
-  public string SearchQuery
-  {
-    get => field;
-    set => SetField(ref field, value);
-  }
+    #region Properties
 
-  public ObservableCollection<string> SearchResults { get; set; } = [];
+    [ObservableProperty]
+    public partial List<Species> BirdList { get; set; } = [];
 
-  public MainWindowViewModel()
-  {  }
-
-  public MainWindowViewModel(BirdSearchService birdSearchService)
-  {
-    _birdSearchService = birdSearchService;
-  }
-
-  [RelayCommand]
-  public async Task SearchButtonClicked()
-  {
-    IEnumerable<Species> results = await _birdSearchService.SearchSpeciesByCommonNameAsync(SearchQuery);
-    SearchResults.Clear();
-    foreach (var result in results)
+    [ObservableProperty]
+    public partial Species SelectedBird { get; set; } = new Species
     {
-      SearchResults.Add(result.ScientificName);
+        ScientificName = "Erithacus rubecula",
+        CommonNameSingle = "European Robin",
+        Description =
+            "The European robin (Erithacus rubecula) is a small insectivorous passerine bird that was formerly classed as a member of the thrush family (Turdidae), but is now considered to be an Old World flycatcher. About 12.5–14.0 cm (5.0–5.5 inches) in length",
+        OccurrenceCount = 5000000,
+        Habitats = "Woodland, gardens, parks"
+    };
+
+    #endregion
+
+
+    #region Constructors
+
+    /// <summary>
+    /// Constructor for design-time - unused at runtime
+    /// </summary>
+    public MainWindowViewModel() : this(null!)
+    {
     }
-  }
+
+    // ReSharper disable once MemberCanBePrivate.Global
+    public MainWindowViewModel(BirdSearchService birdSearchService)
+    {
+        _birdSearchService = birdSearchService;
+    }
+
+    #endregion
+
+    public async Task SearchByQuery(string query)
+    {
+        BirdList = await _birdSearchService.SearchSpeciesAsync(query);
+        Console.WriteLine(BirdList.Count);
+    }
 }

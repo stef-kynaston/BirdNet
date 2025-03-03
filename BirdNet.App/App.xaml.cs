@@ -17,17 +17,18 @@ public partial class App : Application
     protected override async void OnStartup(StartupEventArgs e)
     {
         _host = Host.CreateDefaultBuilder(e.Args)
-            .ConfigureServices((_, services) =>
-            {
-                services.AddDbContext<AppDbContext>(options =>
+            .ConfigureServices(
+                (_, services) =>
                 {
-                    options.UseSqlite(@"Data Source=..\..\..\Data\Repositories\BirdNet.db");
-                });
+                    services.AddDbContext<AppDbContext>(
+                        options => { options.UseSqlite(@"Data Source=..\..\..\Data\Repositories\BirdNet.db"); }
+                    );
 
-                services.AddTransient<MainWindow>();
-                services.AddTransient<MainWindowViewModel>();
-                services.AddTransient<BirdSearchService>();
-            })
+                    services.AddSingleton<MainWindow>();
+                    services.AddSingleton<MainWindowViewModel>();
+                    services.AddSingleton<BirdSearchService>();
+                }
+            )
             .Build();
 
         await _host.StartAsync();
@@ -38,6 +39,7 @@ public partial class App : Application
         base.OnStartup(e);
     }
 
+    // ReSharper disable once AsyncVoidMethod
     protected override async void OnExit(ExitEventArgs e)
     {
         if (_host is not null)
@@ -45,6 +47,7 @@ public partial class App : Application
             await _host.StopAsync();
             _host.Dispose();
         }
+
         base.OnExit(e);
     }
 }

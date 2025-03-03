@@ -1,42 +1,78 @@
 ﻿<ui:FluentWindow
-    Height="450"
+    Height="800"
     Title="MainWindow"
-    Width="800"
+    Width="1000"
+    d:DataContext="{d:DesignInstance Type=viewModels:MainWindowViewModel,
+                                     IsDesignTimeCreatable=False}"
+    mc:Ignorable="d"
+    ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     x:Class="BirdNet.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:birdNet="clr-namespace:BirdNet"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:viewModels="clr-namespace:BirdNet.ViewModels"
-    mc:Ignorable="d"
-    d:DataContext="{d:DesignInstance Type=viewModels:MainWindowViewModel, IsDesignTimeCreatable=False}">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ui:FluentWindow.Resources>
-        <LinearGradientBrush x:Key="WindowBackgroundBrush">
-            <GradientStop Offset="0" Color="#FF005C80"/>
-            <GradientStop Offset="1" Color="Gray"/>
+        <LinearGradientBrush x:Key="CardGradientBrush">
+            <GradientStop Color="#FF005C80" Offset="0" />
+            <GradientStop Color="Gray" Offset="1" />
         </LinearGradientBrush>
     </ui:FluentWindow.Resources>
 
-    <Grid HorizontalAlignment="Right" Width="800" Background="{StaticResource WindowBackgroundBrush}">
+    <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="39*"/>
-            <RowDefinition Height="347*"/>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <ui:TitleBar Title="BirdNet" Height="48" VerticalAlignment="Center" />
+        <ui:TitleBar
+            FontFamily="Segoe UI Light"
+            FontSize="18"
+            Title="BIRBS.NET"
+            VerticalAlignment="Center" />
 
-        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Width="490">
-            <ui:TextBox
-            HorizontalAlignment="Left"
-            MinWidth="400"
-            VerticalAlignment="Top"  Height="36" Width="400" Margin="0,0,10,0" Text="{Binding SearchQuery}"/>
-            <ui:Button Content="Click me!" VerticalAlignment="Top" Height="36" Width="80" Command="{Binding SearchButtonClickedCommand}" />
-        </StackPanel>
+        <Border
+            Background="#262626"
+            Grid.Row="1"
+            Margin="5"
+            Padding="10"
+            VerticalAlignment="Stretch">
 
-        <ui:ListView Grid.Row="2"
-                     ItemsSource="{Binding SearchResults}"/>
+            <Grid VerticalAlignment="Stretch">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <ui:AutoSuggestBox
+                    Grid.Row="0"
+                    ItemsSource="{Binding BirdList}"
+                    PlaceholderText="Search"
+                    TextChanged="AutoSuggestBox_OnTextChanged">
+
+                    <ui:AutoSuggestBox.Icon>
+                        <ui:IconSourceElement>
+                            <ui:SymbolIconSource Symbol="Search24" />
+                        </ui:IconSourceElement>
+                    </ui:AutoSuggestBox.Icon>
+
+                </ui:AutoSuggestBox>
+
+                <ui:Card
+                    Background="{StaticResource CardGradientBrush}"
+                    Grid.Row="1"
+                    Margin="5"
+                    Padding="10"
+                    VerticalAlignment="Top">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="14" Text="Species Name: " />
+                        <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" />
+                    </StackPanel>
+                </ui:Card>
+            </Grid>
+        </Border>
     </Grid>
 </ui:FluentWindow>

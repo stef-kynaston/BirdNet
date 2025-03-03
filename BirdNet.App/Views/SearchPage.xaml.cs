@@ -1,5 +1,4 @@
 using System.Windows.Controls;
-using System.Windows.Navigation;
 using BirdNet.ViewModels;
 
 namespace BirdNet.Views;

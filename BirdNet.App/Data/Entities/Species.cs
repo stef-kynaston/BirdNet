@@ -22,7 +22,7 @@ public class Species
     public string? CommonNames { get; set; } = null!;
 
     [Column("commonNameSingle")]
-    public string? CommonNameSingle { get; set; } = null!;
+    public string CommonNameSingle { get; set; } = null!;
 
     [Column("occurrenceCount")]
     public int OccurrenceCount { get; set; } = 0;
@@ -39,4 +39,10 @@ public class Species
 
     // Navigation properties
     public Genus Genus { get; set; } = null!;
+    
+    // Methods
+    public override string ToString()
+    {
+        return CommonNameSingle;
+    }
 }

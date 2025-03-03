@@ -1,6 +1,6 @@
 namespace BirdNet.ViewModels;
 
-public class TaxonomyPageViewModel : BaseViewModel
+public class TaxonomyPageViewModel
 {
     
 }
