@@ -41,7 +41,6 @@ public partial class MainWindowViewModel : ObservableObject
     {
     }
 
-    // ReSharper disable once MemberCanBePrivate.Global
     public MainWindowViewModel(BirdSearchService birdSearchService)
     {
         _birdSearchService = birdSearchService;

@@ -19,6 +19,7 @@
             <GradientStop Color="#FF005C80" Offset="0" />
             <GradientStop Color="Gray" Offset="1" />
         </LinearGradientBrush>
+        <SolidColorBrush Color="#FF005C80" x:Key="CardBrush" />
     </ui:FluentWindow.Resources>
 
     <Grid VerticalAlignment="Stretch">
@@ -61,11 +62,11 @@
                 </ui:AutoSuggestBox>
 
                 <ui:Card
-                    Background="{StaticResource CardGradientBrush}"
+                    Background="{StaticResource CardBrush}"
                     Grid.Row="1"
                     Margin="5"
                     Padding="10"
-                    VerticalAlignment="Top">
+                    VerticalAlignment="Center">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock FontSize="14" Text="Species Name: " />
                         <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" />
