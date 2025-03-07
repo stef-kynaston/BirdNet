@@ -8,6 +8,11 @@ public partial class MainWindowViewModel : ObservableObject
 {
     private readonly BirdSearchService _birdSearchService;
 
+    public async Task SearchByQuery(string query)
+    {
+        BirdList = await _birdSearchService.SearchSpeciesAsync(query);
+    }
+
     #region Properties
 
     [ObservableProperty]
@@ -43,10 +48,4 @@ public partial class MainWindowViewModel : ObservableObject
     }
 
     #endregion
-
-    public async Task SearchByQuery(string query)
-    {
-        BirdList = await _birdSearchService.SearchSpeciesAsync(query);
-        Console.WriteLine(BirdList.Count);
-    }
 }
