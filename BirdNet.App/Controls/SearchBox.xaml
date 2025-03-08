@@ -1,0 +1,73 @@
+<UserControl
+    d:DataContext="{d:DesignInstance Type=local:SearchBox,
+                                     IsDesignTimeCreatable=True}"
+    d:DesignHeight="100"
+    d:DesignWidth="300"
+    mc:Ignorable="d"
+    x:Class="BirdNet.Controls.SearchBox"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:BirdNet.Controls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+    xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <UserControl.Resources>
+        <x:Array Type="{x:Type sys:String}" x:Key="TestArray">
+            <sys:String>Test 1</sys:String>
+            <sys:String>Test 2</sys:String>
+            <sys:String>Test 3</sys:String>
+        </x:Array>
+    </UserControl.Resources>
+
+    <Grid>
+        <ui:TextBox
+            Margin="0"
+            Padding="5"
+            PlaceholderText="Search"
+            x:Name="PartTextBox" />
+
+        <Popup
+            AllowsTransparency="True"
+            Focusable="False"
+            HorizontalAlignment="Stretch"
+            IsOpen="True"
+            Margin="0"
+            MinWidth="{Binding ActualWidth, ElementName=PartTextBox}"
+            Placement="Bottom"
+            PlacementTarget="{Binding ElementName=PartTextBox}"
+            PopupAnimation="Slide"
+            StaysOpen="True"
+            x:Name="PartPopup">
+
+            <Border
+                Background="{DynamicResource FlyoutBackground}"
+                BorderBrush="{DynamicResource FlyoutBorderBrush}"
+                BorderThickness="1"
+                CornerRadius="8"
+                HorizontalAlignment="Stretch"
+                Margin="0"
+                Padding="0,6,0,6"
+                SnapsToDevicePixels="True">
+
+                <ui:ListView
+                    ItemsSource="{StaticResource TestArray}"
+                    SelectionMode="Single"
+                    Width="{Binding ActualWidth, ElementName=PartTextBox}"
+                    x:Name="PartSuggestionsList">
+
+                    <ui:ListView.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <VirtualizingStackPanel
+                                IsItemsHost="True"
+                                IsVirtualizing="True"
+                                VirtualizationMode="Recycling" />
+                        </ItemsPanelTemplate>
+                    </ui:ListView.ItemsPanel>
+                </ui:ListView>
+
+            </Border>
+        </Popup>
+    </Grid>
+</UserControl>

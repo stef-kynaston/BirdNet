@@ -29,6 +29,9 @@ public partial class MainWindowViewModel : ObservableObject
         Habitats = "Woodland, gardens, parks"
     };
 
+    [ObservableProperty]
+    public partial string SearchText { get; set; } = string.Empty;
+
     #endregion
 
 

@@ -9,7 +9,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace BirdNet;
 
-public partial class App : Application
+public partial class App
 {
     private IHost? _host;
 
@@ -26,6 +26,7 @@ public partial class App : Application
 
                     services.AddSingleton<MainWindow>();
                     services.AddSingleton<MainWindowViewModel>();
+
                     services.AddSingleton<BirdSearchService>();
                 }
             )

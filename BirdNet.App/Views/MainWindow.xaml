@@ -8,6 +8,7 @@
     ui:Design.Background="{DynamicResource ApplicationBackgroundBrush}"
     x:Class="BirdNet.Views.MainWindow"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:controls="clr-namespace:BirdNet.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
@@ -47,19 +48,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <ui:AutoSuggestBox
-                    Grid.Row="0"
-                    ItemsSource="{Binding BirdList}"
-                    PlaceholderText="Search"
-                    TextChanged="AutoSuggestBox_OnTextChanged">
-
-                    <ui:AutoSuggestBox.Icon>
-                        <ui:IconSourceElement>
-                            <ui:SymbolIconSource Symbol="Search24" />
-                        </ui:IconSourceElement>
-                    </ui:AutoSuggestBox.Icon>
-
-                </ui:AutoSuggestBox>
+                <controls:SearchBox />
 
                 <ui:Card
                     Background="{StaticResource CardBrush}"
