@@ -16,10 +16,7 @@ public class BirdSearchService
 
     public async Task<List<Species>> SearchSpeciesAsync(string? searchQuery)
     {
-        if (searchQuery is null)
-        {
-            return [];
-        }
+        if (searchQuery is null) return [];
 
         searchQuery = searchQuery.ToLower();
 
@@ -34,10 +31,7 @@ public class BirdSearchService
 
     private async Task<List<Species>> SearchSpeciesByCommonNameAsync(string? searchQuery)
     {
-        if (string.IsNullOrWhiteSpace(searchQuery))
-        {
-            return [];
-        }
+        if (string.IsNullOrWhiteSpace(searchQuery)) return [];
 
         searchQuery = searchQuery.ToLower();
 
@@ -48,10 +42,7 @@ public class BirdSearchService
 
     private async Task<List<Species>> SearchSpeciesByScientificNameAsync(string? searchQuery)
     {
-        if (string.IsNullOrWhiteSpace(searchQuery))
-        {
-            return [];
-        }
+        if (string.IsNullOrWhiteSpace(searchQuery)) return [];
 
         searchQuery = searchQuery.ToLower();
 

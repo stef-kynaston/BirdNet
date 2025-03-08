@@ -18,7 +18,7 @@ public class Order
 
     [Column("commonName")]
     public string? CommonName { get; set; } = null!;
-    
+
     // Navigation properties
     public ICollection<Family> Families { get; set; } = [];
 }

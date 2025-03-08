@@ -16,10 +16,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ui:FluentWindow.Resources>
-        <LinearGradientBrush x:Key="CardGradientBrush">
-            <GradientStop Color="#FF005C80" Offset="0" />
-            <GradientStop Color="Gray" Offset="1" />
-        </LinearGradientBrush>
         <SolidColorBrush Color="#FF005C80" x:Key="CardBrush" />
     </ui:FluentWindow.Resources>
 

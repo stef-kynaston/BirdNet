@@ -39,7 +39,7 @@ public class Species
 
     // Navigation properties
     public Genus Genus { get; set; } = null!;
-    
+
     // Methods
     public override string ToString()
     {

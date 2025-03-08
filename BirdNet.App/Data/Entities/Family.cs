@@ -18,12 +18,12 @@ public class Family
 
     [Column("commonName")]
     public string? CommonName { get; set; } = null!;
-    
+
     [Column("orderGuid")]
     public string OrderGuid { get; set; } = null!;
-    
+
     // Navigation properties
     public Order Order { get; set; } = null!;
-    
+
     public ICollection<Genus> Genera { get; set; } = [];
 }

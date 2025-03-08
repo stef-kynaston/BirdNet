@@ -14,6 +14,6 @@ public partial class MainWindow
         DataContext = model;
 
         // Apply the dark theme
-        ApplicationThemeManager.Apply(ApplicationTheme.Dark, WindowBackdropType.Acrylic, updateAccent: false);
+        ApplicationThemeManager.Apply(ApplicationTheme.Dark, WindowBackdropType.Acrylic, false);
     }
 }
