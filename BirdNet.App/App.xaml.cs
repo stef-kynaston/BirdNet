@@ -6,6 +6,7 @@ using BirdNet.Views;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 
 namespace BirdNet;
 
@@ -17,6 +18,14 @@ public partial class App
     protected override async void OnStartup(StartupEventArgs e)
     {
         _host = Host.CreateDefaultBuilder(e.Args)
+            .ConfigureLogging(
+                logging =>
+                {
+                    logging.ClearProviders();
+                    logging.SetMinimumLevel(LogLevel.Warning);
+                    logging.AddConsole(Console.WriteLine);
+                }
+            )
             .ConfigureServices(
                 (_, services) =>
                 {
