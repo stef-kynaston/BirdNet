@@ -8,11 +8,6 @@ public partial class MainWindowViewModel : ObservableObject
 {
     private readonly BirdSearchService _birdSearchService;
 
-    public async Task SearchByQuery(string query)
-    {
-        BirdList = await _birdSearchService.SearchSpeciesAsync(query);
-    }
-
     #region Properties
 
     [ObservableProperty]
