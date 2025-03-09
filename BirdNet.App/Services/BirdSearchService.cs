@@ -16,7 +16,7 @@ public class BirdSearchService
 
     public async Task<List<Species>> SearchSpeciesAsync(string? searchQuery)
     {
-        if (searchQuery is null) return [];
+        if (searchQuery is null || searchQuery.Length < 3) return [];
 
         searchQuery = searchQuery.ToLower();
 
