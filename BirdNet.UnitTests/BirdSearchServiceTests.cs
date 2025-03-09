@@ -1,8 +1,6 @@
-using BirdNet.Data.Entities;
 using BirdNet.Data.Repositories;
 using BirdNet.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 
 namespace BirdNet.UnitTests;
 
@@ -36,11 +34,11 @@ public class BirdSearchServiceTests
 
         // foreach (Species species in results)
         // {
-            // TestContext.WriteLine(
-                // $"Common name: {species.CommonNameSingle}, Scientific name: {species.ScientificName}"
-            // );
+        // TestContext.WriteLine(
+        // $"Common name: {species.CommonNameSingle}, Scientific name: {species.ScientificName}"
+        // );
         // }
-        
+
         // Assert.That(results, Has.Count.EqualTo(12));
     }
 

@@ -15,6 +15,7 @@
             Margin="0"
             Padding="5"
             PlaceholderText="Search"
+            Text="{Binding SearchText, ElementName=SearchBoxControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             TextChanged="PartTextBox_OnTextChanged"
             x:Name="PartTextBox" />
 
@@ -22,12 +23,12 @@
             AllowsTransparency="True"
             Focusable="False"
             HorizontalAlignment="Stretch"
-            IsOpen="True"
             Margin="0"
             MinWidth="{Binding ActualWidth, ElementName=PartTextBox}"
             Placement="Bottom"
             PlacementTarget="{Binding ElementName=PartTextBox}"
             PopupAnimation="Slide"
+            StaysOpen="False"
             x:Name="PartPopup">
 
             <Border
@@ -41,6 +42,9 @@
                 SnapsToDevicePixels="True">
 
                 <ui:ListView
+                    ItemsSource="{Binding ItemsList, ElementName=SearchBoxControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectedItem="{Binding SelectedSpecies, ElementName=SearchBoxControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SelectionChanged="PartSuggestionsList_OnSelectionChanged"
                     SelectionMode="Single"
                     Width="{Binding ActualWidth, ElementName=PartTextBox}"
                     x:Name="PartSuggestionsList">

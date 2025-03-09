@@ -1,4 +1,5 @@
-﻿using BirdNet.ViewModels;
+﻿using System.Windows.Controls;
+using BirdNet.ViewModels;
 using Wpf.Ui.Appearance;
 using Wpf.Ui.Controls;
 
@@ -15,5 +16,16 @@ public partial class MainWindow
 
         // Apply the dark theme
         ApplicationThemeManager.Apply(ApplicationTheme.Dark, WindowBackdropType.Acrylic, false);
+    }
+
+    // ReSharper disable once AsyncVoidMethod
+    private async void SearchBox_OnSearchTextChanged(object sender, TextChangedEventArgs e)
+    {
+        if (DataContext is MainWindowViewModel model)
+        {
+            await model.SearchByQueryAsync();
+        }
+
+        e.Handled = true;
     }
 }

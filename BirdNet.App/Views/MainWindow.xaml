@@ -44,7 +44,12 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <controls:SearchBox />
+                <controls:SearchBox
+                    Grid.Row="0"
+                    ItemsList="{Binding BirdList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SearchText="{Binding QueryText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SearchTextChanged="SearchBox_OnSearchTextChanged"
+                    SelectedSpecies="{Binding SelectedBird, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
 
                 <ui:Card
                     Background="{StaticResource CardBrush}"
