@@ -37,6 +37,9 @@ public class BirdSearchService
 
         return await _dbContext.Species
             .Where(species => species.CommonNames != null && species.CommonNames.ToLower().Contains(searchQuery))
+            .Include(species => species.Genus)
+            .ThenInclude(genus => genus.Family)
+            .ThenInclude(family => family.Order)
             .ToListAsync();
     }
 
