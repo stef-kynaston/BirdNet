@@ -13,9 +13,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:viewModels="clr-namespace:BirdNet.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:conv="clr-namespace:BirdNet.Utilities">
 
     <ui:FluentWindow.Resources>
+        <conv:LineageConverter x:Key="LineageConverter" />
         <SolidColorBrush Color="#FF005C80" x:Key="CardBrush" />
     </ui:FluentWindow.Resources>
 
@@ -43,9 +45,15 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
 
                 <controls:SearchBox
                     Grid.Row="0"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
                     ItemsList="{Binding BirdList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SearchText="{Binding QueryText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SearchTextChanged="SearchBox_OnSearchTextChanged"
@@ -54,13 +62,41 @@
                 <ui:Card
                     Background="{StaticResource CardBrush}"
                     Grid.Row="1"
-                    Margin="5"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2"
+                    Margin="0,15"
                     Padding="10"
-                    VerticalAlignment="Center">
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock FontSize="14" Text="Species Name: " />
-                        <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" />
-                    </StackPanel>
+                    VerticalAlignment="Top">
+                    <!-- <StackPanel Orientation="Horizontal"> -->
+                    <!--     <TextBlock FontSize="14" Text="Species Name: " /> -->
+                    <!--     <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" /> -->
+                    <!--     <TextBlock FontSize="14" Text="{Binding SelectedBird.CommonNameSingle}" /> -->
+                    <!-- </StackPanel> -->
+                    <Grid VerticalAlignment="Stretch">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Row = "0"
+                                    Margin = "7">
+                            <TextBlock FontSize="14" FontWeight="Bold" Text="Scientific Name:   " />
+                            <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Row = "1"
+                                    Margin = "7">
+                            <TextBlock FontSize="14" FontWeight="Bold" Text="Common Name:   " />
+                            <TextBlock FontSize="14" Text="{Binding SelectedBird.CommonNameSingle}" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"
+                                    Grid.Row = "2"
+                                    Margin = "7">
+                            <TextBlock FontSize="14" FontWeight="Bold" Text="Lineage:   " />
+                            <TextBlock FontSize="14" Text="{Binding SelectedBird, Converter={StaticResource LineageConverter}}" />
+                        </StackPanel>
+                    </Grid>
                 </ui:Card>
             </Grid>
         </Border>
