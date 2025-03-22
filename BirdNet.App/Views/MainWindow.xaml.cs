@@ -21,10 +21,7 @@ public partial class MainWindow
     // ReSharper disable once AsyncVoidMethod
     private async void SearchBox_OnSearchTextChanged(object sender, TextChangedEventArgs e)
     {
-        if (DataContext is MainWindowViewModel model)
-        {
-            await model.SearchByCommonNameAsync();
-        }
+        if (DataContext is MainWindowViewModel model) await model.SearchByCommonNameAsync();
 
         e.Handled = true;
     }

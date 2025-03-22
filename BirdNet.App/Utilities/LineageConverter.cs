@@ -31,7 +31,7 @@ public class LineageConverter : IValueConverter
         return string.Join(", ", parts);
     }
 
-    public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }
@@ -50,12 +50,9 @@ public class LineageConverter : IValueConverter
             string epithet = parts[1];
 
             // Capitalize the first letter, make the rest lowercase (optional)
-            if (!string.IsNullOrEmpty(epithet))
-            {
-                return char.ToUpper(epithet[0]) + epithet.Substring(1).ToLower();
-            }
+            if (!string.IsNullOrEmpty(epithet)) return char.ToUpper(epithet[0]) + epithet.Substring(1).ToLower();
         }
-        
+
         return null;
     }
 }
