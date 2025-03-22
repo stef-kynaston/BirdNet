@@ -23,7 +23,7 @@ public partial class MainWindow
     {
         if (DataContext is MainWindowViewModel model)
         {
-            await model.SearchByQueryAsync();
+            await model.SearchByCommonNameAsync();
         }
 
         e.Handled = true;
