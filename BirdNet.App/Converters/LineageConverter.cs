@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Windows.Data;
 using BirdNet.Data.Entities;
 
-namespace BirdNet.Utilities;
+namespace BirdNet.Converters;
 
 public class LineageConverter : IValueConverter
 {

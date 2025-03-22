@@ -13,11 +13,9 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:viewModels="clr-namespace:BirdNet.ViewModels"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:conv="clr-namespace:BirdNet.Utilities">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <ui:FluentWindow.Resources>
-        <conv:LineageConverter x:Key="LineageConverter" />
         <SolidColorBrush Color="#FF005C80" x:Key="CardBrush" />
     </ui:FluentWindow.Resources>
 
@@ -75,26 +73,27 @@
                     <Grid VerticalAlignment="Stretch">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <StackPanel Orientation="Horizontal"
-                                    Grid.Row = "0"
-                                    Margin = "7">
+                                    Grid.Row="0"
+                                    Margin="7">
                             <TextBlock FontSize="14" FontWeight="Bold" Text="Scientific Name:   " />
                             <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
-                                    Grid.Row = "1"
-                                    Margin = "7">
+                                    Grid.Row="1"
+                                    Margin="7">
                             <TextBlock FontSize="14" FontWeight="Bold" Text="Common Name:   " />
                             <TextBlock FontSize="14" Text="{Binding SelectedBird.CommonNameSingle}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal"
-                                    Grid.Row = "2"
-                                    Margin = "7">
+                                    Grid.Row="2"
+                                    Margin="7">
                             <TextBlock FontSize="14" FontWeight="Bold" Text="Lineage:   " />
-                            <TextBlock FontSize="14" Text="{Binding SelectedBird, Converter={StaticResource LineageConverter}}" />
+                            <TextBlock FontSize="14"
+                                       Text="{Binding SelectedBird, Converter={StaticResource LineageConverter}}" />
                         </StackPanel>
                     </Grid>
                 </ui:Card>
