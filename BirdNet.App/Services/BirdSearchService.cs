@@ -16,7 +16,7 @@ public class BirdSearchService
 
     public async Task<List<Species>> SearchSpeciesByCommonNameAsync(string? searchQuery)
     {
-        if (string.IsNullOrWhiteSpace(searchQuery)) return [];
+        if (string.IsNullOrWhiteSpace(searchQuery) || searchQuery.Length < 3) return [];
 
         searchQuery = searchQuery.ToLower();
 
@@ -30,7 +30,7 @@ public class BirdSearchService
 
     public async Task<List<Species>> SearchSpeciesByScientificNameAsync(string? searchQuery)
     {
-        if (string.IsNullOrWhiteSpace(searchQuery)) return [];
+        if (string.IsNullOrWhiteSpace(searchQuery) || searchQuery.Length < 3) return [];
 
         searchQuery = searchQuery.ToLower();
 
