@@ -28,9 +28,16 @@ public partial class MainWindowViewModel(BirdSearchService birdSearchService) : 
 
     #region Methods
 
-    public async Task SearchByQueryAsync()
+    public async Task SearchByCommonNameAsync()
     {
-        BirdList = new ObservableCollection<Species>(await birdSearchService.SearchSpeciesAsync(QueryText));
+        BirdList = new ObservableCollection<Species>(await birdSearchService.SearchSpeciesByCommonNameAsync(QueryText));
+    }
+
+    public async Task SearchByScientificNameAsync()
+    {
+        BirdList = new ObservableCollection<Species>(
+            await birdSearchService.SearchSpeciesByScientificNameAsync(QueryText)
+        );
     }
 
     #endregion

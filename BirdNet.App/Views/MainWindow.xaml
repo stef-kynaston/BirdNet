@@ -49,9 +49,9 @@
                 </Grid.ColumnDefinitions>
 
                 <controls:SearchBox
-                    Grid.Row="0"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
+                    Grid.Row="0"
                     ItemsList="{Binding BirdList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SearchText="{Binding QueryText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     SearchTextChanged="SearchBox_OnSearchTextChanged"
@@ -59,9 +59,9 @@
 
                 <ui:Card
                     Background="{StaticResource CardBrush}"
-                    Grid.Row="1"
                     Grid.Column="0"
                     Grid.ColumnSpan="2"
+                    Grid.Row="1"
                     Margin="0,15"
                     Padding="10"
                     VerticalAlignment="Top">
@@ -76,24 +76,35 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <StackPanel Orientation="Horizontal"
-                                    Grid.Row="0"
-                                    Margin="7">
-                            <TextBlock FontSize="14" FontWeight="Bold" Text="Scientific Name:   " />
+                        <StackPanel
+                            Grid.Row="0"
+                            Margin="7"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                FontSize="14"
+                                FontWeight="Bold"
+                                Text="Scientific Name:   " />
                             <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal"
-                                    Grid.Row="1"
-                                    Margin="7">
-                            <TextBlock FontSize="14" FontWeight="Bold" Text="Common Name:   " />
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="7"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                FontSize="14"
+                                FontWeight="Bold"
+                                Text="Common Name:   " />
                             <TextBlock FontSize="14" Text="{Binding SelectedBird.CommonNameSingle}" />
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal"
-                                    Grid.Row="2"
-                                    Margin="7">
-                            <TextBlock FontSize="14" FontWeight="Bold" Text="Lineage:   " />
-                            <TextBlock FontSize="14"
-                                       Text="{Binding SelectedBird, Converter={StaticResource LineageConverter}}" />
+                        <StackPanel
+                            Grid.Row="2"
+                            Margin="7"
+                            Orientation="Horizontal">
+                            <TextBlock
+                                FontSize="14"
+                                FontWeight="Bold"
+                                Text="Lineage:   " />
+                            <TextBlock FontSize="14" Text="{Binding SelectedBird, Converter={StaticResource LineageConverter}}" />
                         </StackPanel>
                     </Grid>
                 </ui:Card>

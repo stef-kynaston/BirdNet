@@ -14,24 +14,9 @@ public class BirdSearchService
         _ = _dbContext.Species.FirstOrDefault();
     }
 
-    public async Task<List<Species>> SearchSpeciesAsync(string? searchQuery)
+    public async Task<List<Species>> SearchSpeciesByCommonNameAsync(string? searchQuery)
     {
-        if (searchQuery is null || searchQuery.Length < 3) return [];
-
-        searchQuery = searchQuery.ToLower();
-
-        // Search by common name and scientific name
-        List<Species> commonNameResults = await SearchSpeciesByCommonNameAsync(searchQuery);
-        List<Species> scientificNameResults = await SearchSpeciesByScientificNameAsync(searchQuery);
-
-        return commonNameResults.Concat(scientificNameResults)
-            .Distinct()
-            .ToList();
-    }
-
-    private async Task<List<Species>> SearchSpeciesByCommonNameAsync(string? searchQuery)
-    {
-        if (string.IsNullOrWhiteSpace(searchQuery)) return [];
+        if (string.IsNullOrWhiteSpace(searchQuery) || searchQuery.Length < 3) return [];
 
         searchQuery = searchQuery.ToLower();
 
@@ -43,9 +28,9 @@ public class BirdSearchService
             .ToListAsync();
     }
 
-    private async Task<List<Species>> SearchSpeciesByScientificNameAsync(string? searchQuery)
+    public async Task<List<Species>> SearchSpeciesByScientificNameAsync(string? searchQuery)
     {
-        if (string.IsNullOrWhiteSpace(searchQuery)) return [];
+        if (string.IsNullOrWhiteSpace(searchQuery) || searchQuery.Length < 3) return [];
 
         searchQuery = searchQuery.ToLower();
 

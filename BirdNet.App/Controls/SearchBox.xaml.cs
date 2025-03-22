@@ -57,7 +57,7 @@ public partial class SearchBox
         if (PartSuggestionsList.SelectedItem is not Species species) return;
 
         SelectedSpecies = species;
-        SearchText = species.ScientificName;
+        SearchText = species.CommonNameSingle;
         PartPopup.IsOpen = false;
     }
 }
