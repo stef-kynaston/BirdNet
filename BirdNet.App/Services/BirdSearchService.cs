@@ -51,6 +51,9 @@ public class BirdSearchService
 
         return await _dbContext.Species
             .Where(species => species.ScientificName.ToLower().Contains(searchQuery))
+            .Include(species => species.Genus)
+            .ThenInclude(genus => genus.Family)
+            .ThenInclude(family => family.Order)
             .ToListAsync();
     }
 }
