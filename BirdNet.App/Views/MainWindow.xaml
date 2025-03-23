@@ -1,5 +1,5 @@
 ﻿<ui:FluentWindow
-    Height="800"
+    Height="600"
     Title="MainWindow"
     Width="1000"
     d:DataContext="{d:DesignInstance Type=viewModels:MainWindowViewModel,
@@ -40,6 +40,7 @@
 
             <Grid VerticalAlignment="Stretch">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
@@ -108,6 +109,13 @@
                         </StackPanel>
                     </Grid>
                 </ui:Card>
+                <ui:Image
+                    BorderBrush="#33000000"
+                    CornerRadius="4"
+                    Grid.Column="0"
+                    Grid.Row="2"
+                    Source="{Binding ImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    VerticalAlignment="Stretch" />
             </Grid>
         </Border>
     </Grid>

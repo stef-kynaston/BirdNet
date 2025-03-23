@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.IO;
 using BirdNet.Data.Entities;
 using BirdNet.Services;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -15,6 +16,8 @@ public partial class MainWindowViewModel(BirdSearchService birdSearchService) : 
     //     _birdSearchService = birdSearchService;
     // }
 
+    private string _imageBasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets");
+
     #region Constructors
 
     /// <summary>
@@ -26,7 +29,27 @@ public partial class MainWindowViewModel(BirdSearchService birdSearchService) : 
 
     #endregion
 
+    #region Properties
+
+    [ObservableProperty]
+    public partial ObservableCollection<Species> BirdList { get; set; } = [];
+
+    [ObservableProperty]
+    public partial Species? SelectedBird { get; set; }
+
+    [ObservableProperty]
+    public partial string QueryText { get; set; } = string.Empty;
+
+    public string ImagePath => Path.Combine(_imageBasePath, SelectedBird?.ScientificName ?? string.Empty, "0.jpg");
+
+    #endregion
+
     #region Methods
+    
+    partial void OnSelectedBirdChanged(Species? oldValue, Species? newValue)
+    {
+       OnPropertyChanged(nameof(ImagePath)); 
+    }
 
     public async Task SearchByCommonNameAsync()
     {
@@ -39,19 +62,6 @@ public partial class MainWindowViewModel(BirdSearchService birdSearchService) : 
             await birdSearchService.SearchSpeciesByScientificNameAsync(QueryText)
         );
     }
-
-    #endregion
-
-    #region Properties
-
-    [ObservableProperty]
-    public partial ObservableCollection<Species> BirdList { get; set; } = [];
-
-    [ObservableProperty]
-    public partial Species SelectedBird { get; set; } = null!;
-
-    [ObservableProperty]
-    public partial string QueryText { get; set; } = string.Empty;
 
     #endregion
 }
