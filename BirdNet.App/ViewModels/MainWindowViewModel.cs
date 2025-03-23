@@ -42,13 +42,17 @@ public partial class MainWindowViewModel(BirdSearchService birdSearchService) : 
 
     public string ImagePath => Path.Combine(_imageBasePath, SelectedBird?.ScientificName ?? string.Empty, "0.jpg");
 
+    public string MapPath =>
+        Path.Combine(_imageBasePath, "Maps", (SelectedBird?.ScientificName ?? string.Empty) + ".png");
+
     #endregion
 
     #region Methods
-    
+
     partial void OnSelectedBirdChanged(Species? oldValue, Species? newValue)
     {
-       OnPropertyChanged(nameof(ImagePath)); 
+        OnPropertyChanged(nameof(ImagePath));
+        OnPropertyChanged(nameof(MapPath));
     }
 
     public async Task SearchByCommonNameAsync()

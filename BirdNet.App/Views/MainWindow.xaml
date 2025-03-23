@@ -117,6 +117,13 @@
                     Grid.Row="2"
                     Source="{Binding ImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     VerticalAlignment="Stretch" />
+                <ui:Image
+                    BorderBrush="#33000000"
+                    CornerRadius="4"
+                    Grid.Column="1"
+                    Grid.Row="2"
+                    Source="{Binding MapPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    VerticalAlignment="Stretch" />
             </Grid>
         </Border>
     </Grid>
