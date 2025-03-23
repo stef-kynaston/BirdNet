@@ -8,16 +8,17 @@ public class LineageConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        Species? species = value as Species;
-        if (species is null) return string.Empty;
+        if (value is not Species species) 
+        {
+            return string.Empty;
+        }
 
-        List<string> parts = new List<string>();
+        List<string> parts = [];
 
         // Extract the species epithet from the scientific name
-        string? speciesEpithet = GetSpeciesEpithet(species.ScientificName);
 
-        if (!string.IsNullOrWhiteSpace(speciesEpithet))
-            parts.Add(speciesEpithet);
+        if (!string.IsNullOrWhiteSpace(species.SpeciesEpithet))
+            parts.Add(species.SpeciesEpithet);
 
         if (!string.IsNullOrWhiteSpace(species.Genus.Name))
             parts.Add(species.Genus.Name);
@@ -34,25 +35,5 @@ public class LineageConverter : IValueConverter
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
-    }
-
-    // Private helper method for extracting the species epithet
-    private string? GetSpeciesEpithet(string? scientificName)
-    {
-        if (string.IsNullOrWhiteSpace(scientificName))
-            return null;
-
-        string[] parts = scientificName.Split(' ');
-
-        // Return the second part (species epithet), if available
-        if (parts.Length >= 2)
-        {
-            string epithet = parts[1];
-
-            // Capitalize the first letter, make the rest lowercase (optional)
-            if (!string.IsNullOrEmpty(epithet)) return char.ToUpper(epithet[0]) + epithet.Substring(1).ToLower();
-        }
-
-        return null;
     }
 }
