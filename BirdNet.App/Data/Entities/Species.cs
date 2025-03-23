@@ -1,10 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using BirdNet.Extensions;
 
 namespace BirdNet.Data.Entities;
 
 public class Species
 {
+    #region Mapped Properties
+
     [Key]
     [Column("guid")]
     public string Guid { get; set; } = null!;
@@ -33,16 +36,31 @@ public class Species
     [Column("habitat")]
     public string? Habitats { get; set; } = null!;
 
-    // Foreign keys
     [Column("genusGuid")]
     public string GenusGuid { get; set; } = null!;
 
-    // Navigation properties
+    #endregion
+
+    #region Computed Properties
+
+    [NotMapped]
+    public string SpeciesEpithet => ScientificName.Split(" ")[1].ToTitleCase();
+
+    #endregion
+
+    #region Navigation properties
+
     public Genus Genus { get; set; } = null!;
 
-    // Methods
+    #endregion
+
+
+    #region Methods
+
     public override string ToString()
     {
         return CommonNameSingle;
     }
+
+    #endregion
 }
