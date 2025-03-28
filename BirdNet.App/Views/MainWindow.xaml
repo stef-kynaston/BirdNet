@@ -1,7 +1,6 @@
 ﻿<ui:FluentWindow
-    Background="#EFF6EF"
     Height="600"
-    Title="MainWindow"
+    Title="BIRBS.NET"
     Width="1000"
     d:DataContext="{d:DesignInstance Type=viewModels:MainWindowViewModel,
                                      IsDesignTimeCreatable=False}"
@@ -12,13 +11,10 @@
     xmlns:controls="clr-namespace:BirdNet.Controls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:pages="clr-namespace:BirdNet.Views.Pages"
     xmlns:ui="http://schemas.lepo.co/wpfui/2022/xaml"
     xmlns:viewModels="clr-namespace:BirdNet.ViewModels"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
-
-    <ui:FluentWindow.Resources>
-        <SolidColorBrush Color="#AFD0AF" x:Key="PrimaryBrush" />
-    </ui:FluentWindow.Resources>
 
     <Grid VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
@@ -26,105 +22,128 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <ui:NavigationView
+            Grid.Row="1"
+            IsBackButtonVisible="Collapsed"
+            IsPaneToggleVisible="False"
+            OpenPaneLength="200"
+            PaneDisplayMode="Left"
+            x:Name="RootNavigation">
+
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem Content="Home" Icon="{ui:SymbolIcon Home24}" />
+                <ui:NavigationViewItem
+                    Content="Taxonomy"
+                    Icon="{ui:SymbolIcon BranchFork24}"
+                    TargetPageType="{x:Type pages:TaxonomyPage}" />
+                <ui:NavigationViewItem Content="Gallery" Icon="{ui:SymbolIcon Camera24}" />
+                <ui:NavigationViewItem Content="Distribution" Icon="{ui:SymbolIcon Location24}" />
+            </ui:NavigationView.MenuItems>
+
+            <ui:NavigationView.Header>
+                <controls:SearchBox
+                    ItemsList="{Binding BirdList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Margin="10"
+                    SearchText="{Binding QueryText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    SearchTextChanged="SearchBox_OnSearchTextChanged"
+                    SelectedSpecies="{Binding SelectedBird, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    Width="Auto" />
+            </ui:NavigationView.Header>
+
+        </ui:NavigationView>
+
         <ui:TitleBar
-            Background="{StaticResource PrimaryBrush}"
-            FontFamily="Segoe UI Light"
-            FontSize="18"
+            Background="{StaticResource PrimaryLightBrush}"
+            FontSize="20"
+            Grid.Row="0"
+            Icon="{ui:SymbolIcon AirplaneTakeOff24}"
             Title="BIRBS.NET"
             VerticalAlignment="Center" />
 
-        <Border
-            Grid.Row="1"
-            Margin="5"
-            Padding="10"
-            VerticalAlignment="Stretch">
-
-            <Grid VerticalAlignment="Stretch">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <controls:SearchBox
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Grid.Row="0"
-                    ItemsList="{Binding BirdList, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SearchText="{Binding QueryText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SearchTextChanged="SearchBox_OnSearchTextChanged"
-                    SelectedSpecies="{Binding SelectedBird, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
-
-                <ui:Card
-                    Background="{StaticResource PrimaryBrush}"
-                    Grid.Column="0"
-                    Grid.ColumnSpan="2"
-                    Grid.Row="1"
-                    Margin="0,15"
-                    Padding="10"
-                    VerticalAlignment="Top">
-                    <!-- <StackPanel Orientation="Horizontal"> -->
-                    <!--     <TextBlock FontSize="14" Text="Species Name: " /> -->
-                    <!--     <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" /> -->
-                    <!--     <TextBlock FontSize="14" Text="{Binding SelectedBird.CommonNameSingle}" /> -->
-                    <!-- </StackPanel> -->
-                    <Grid VerticalAlignment="Stretch">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <StackPanel
-                            Grid.Row="0"
-                            Margin="7"
-                            Orientation="Horizontal">
-                            <TextBlock
-                                FontSize="14"
-                                FontWeight="Bold"
-                                Text="Scientific Name:   " />
-                            <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" />
-                        </StackPanel>
-                        <StackPanel
-                            Grid.Row="1"
-                            Margin="7"
-                            Orientation="Horizontal">
-                            <TextBlock
-                                FontSize="14"
-                                FontWeight="Bold"
-                                Text="Common Name:   " />
-                            <TextBlock FontSize="14" Text="{Binding SelectedBird.CommonNameSingle}" />
-                        </StackPanel>
-                        <StackPanel
-                            Grid.Row="2"
-                            Margin="7"
-                            Orientation="Horizontal">
-                            <TextBlock
-                                FontSize="14"
-                                FontWeight="Bold"
-                                Text="Lineage:   " />
-                            <TextBlock FontSize="14" Text="{Binding SelectedBird, Converter={StaticResource LineageConverter}}" />
-                        </StackPanel>
-                    </Grid>
-                </ui:Card>
-                <ui:Image
-                    BorderBrush="#33000000"
-                    CornerRadius="4"
-                    Grid.Column="0"
-                    Grid.Row="2"
-                    Source="{Binding ImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    VerticalAlignment="Stretch" />
-                <ui:Image
-                    BorderBrush="#33000000"
-                    CornerRadius="4"
-                    Grid.Column="1"
-                    Grid.Row="2"
-                    Source="{Binding MapPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    VerticalAlignment="Stretch" />
-            </Grid>
-        </Border>
+        <!--  <Border  -->
+        <!--  Grid.Row="1"  -->
+        <!--  Margin="5"  -->
+        <!--  Padding="10"  -->
+        <!--  VerticalAlignment="Stretch">  -->
+        <!--    -->
+        <!--     <Grid VerticalAlignment="Stretch"> -->
+        <!--         <Grid.RowDefinitions> -->
+        <!--             <RowDefinition Height="Auto" /> -->
+        <!--             <RowDefinition Height="Auto" /> -->
+        <!--             <RowDefinition Height="*" /> -->
+        <!--         </Grid.RowDefinitions> -->
+        <!--         <Grid.ColumnDefinitions> -->
+        <!--             <ColumnDefinition Width="*" /> -->
+        <!--             <ColumnDefinition Width="*" /> -->
+        <!--         </Grid.ColumnDefinitions> -->
+        <!--    -->
+        <!--    -->
+        <!--  <ui:Card  -->
+        <!--  Background="{StaticResource PrimaryBrush}"  -->
+        <!--  Grid.Column="0"  -->
+        <!--  Grid.ColumnSpan="2"  -->
+        <!--  Grid.Row="1"  -->
+        <!--  Margin="0,15"  -->
+        <!--  Padding="10"  -->
+        <!--  VerticalAlignment="Top">  -->
+        <!--             ~1~ <StackPanel Orientation="Horizontal"> @1@ -->
+        <!--             ~1~     <TextBlock FontSize="14" Text="Species Name: " /> @1@ -->
+        <!--             ~1~     <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" /> @1@ -->
+        <!--             ~1~     <TextBlock FontSize="14" Text="{Binding SelectedBird.CommonNameSingle}" /> @1@ -->
+        <!--             ~1~ </StackPanel> @1@ -->
+        <!--             <Grid VerticalAlignment="Stretch"> -->
+        <!--                 <Grid.RowDefinitions> -->
+        <!--                     <RowDefinition Height="*" /> -->
+        <!--                     <RowDefinition Height="*" /> -->
+        <!--                     <RowDefinition Height="*" /> -->
+        <!--                 </Grid.RowDefinitions> -->
+        <!--  <StackPanel  -->
+        <!--  Grid.Row="0"  -->
+        <!--  Margin="7"  -->
+        <!--  Orientation="Horizontal">  -->
+        <!--  <TextBlock  -->
+        <!--  FontSize="14"  -->
+        <!--  FontWeight="Bold"  -->
+        <!--  Text="Scientific Name:   " />  -->
+        <!--                     <TextBlock FontSize="14" Text="{Binding SelectedBird.ScientificName}" /> -->
+        <!--                 </StackPanel> -->
+        <!--  <StackPanel  -->
+        <!--  Grid.Row="1"  -->
+        <!--  Margin="7"  -->
+        <!--  Orientation="Horizontal">  -->
+        <!--  <TextBlock  -->
+        <!--  FontSize="14"  -->
+        <!--  FontWeight="Bold"  -->
+        <!--  Text="Common Name:   " />  -->
+        <!--                     <TextBlock FontSize="14" Text="{Binding SelectedBird.CommonNameSingle}" /> -->
+        <!--                 </StackPanel> -->
+        <!--  <StackPanel  -->
+        <!--  Grid.Row="2"  -->
+        <!--  Margin="7"  -->
+        <!--  Orientation="Horizontal">  -->
+        <!--  <TextBlock  -->
+        <!--  FontSize="14"  -->
+        <!--  FontWeight="Bold"  -->
+        <!--  Text="Lineage:   " />  -->
+        <!--                     <TextBlock FontSize="14" Text="{Binding SelectedBird, Converter={StaticResource LineageConverter}}" /> -->
+        <!--                 </StackPanel> -->
+        <!--             </Grid> -->
+        <!--         </ui:Card> -->
+        <!--  <ui:Image  -->
+        <!--  BorderBrush="#33000000"  -->
+        <!--  CornerRadius="4"  -->
+        <!--  Grid.Column="0"  -->
+        <!--  Grid.Row="2"  -->
+        <!--  Source="{Binding ImagePath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  -->
+        <!--  VerticalAlignment="Stretch" />  -->
+        <!--  <ui:Image  -->
+        <!--  BorderBrush="#33000000"  -->
+        <!--  CornerRadius="4"  -->
+        <!--  Grid.Column="1"  -->
+        <!--  Grid.Row="2"  -->
+        <!--  Source="{Binding MapPath, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"  -->
+        <!--  VerticalAlignment="Stretch" />  -->
+        <!--     </Grid> -->
+        <!-- </Border> -->
     </Grid>
 </ui:FluentWindow>

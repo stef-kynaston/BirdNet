@@ -3,10 +3,13 @@ using BirdNet.Data.Repositories;
 using BirdNet.Services;
 using BirdNet.ViewModels;
 using BirdNet.Views;
+using BirdNet.Views.Pages;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Wpf.Ui;
+using Wpf.Ui.DependencyInjection;
 
 namespace BirdNet;
 
@@ -29,12 +32,19 @@ public partial class App
             .ConfigureServices(
                 (_, services) =>
                 {
+                    services.AddNavigationViewPageProvider();
+                    
                     services.AddDbContext<AppDbContext>(
                         options => { options.UseSqlite(@"Data Source=..\..\..\Data\Repositories\BirdNet.db"); }
                     );
 
+                    services.AddSingleton<INavigationService, NavigationService>();
+                    
                     services.AddSingleton<MainWindow>();
                     services.AddSingleton<MainWindowViewModel>();
+
+                    services.AddSingleton<TaxonomyPage>();
+                    // services.AddSingleton<TaxonomyPageViewModel>();
 
                     services.AddSingleton<BirdSearchService>();
                 }

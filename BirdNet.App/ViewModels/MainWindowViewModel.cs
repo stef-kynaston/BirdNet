@@ -2,32 +2,18 @@ using System.Collections.ObjectModel;
 using System.IO;
 using BirdNet.Data.Entities;
 using BirdNet.Services;
+using BirdNet.Views.Pages;
 using CommunityToolkit.Mvvm.ComponentModel;
+using Wpf.Ui;
+using Wpf.Ui.Controls;
 
 namespace BirdNet.ViewModels;
 
-public partial class MainWindowViewModel(BirdSearchService birdSearchService) : ObservableObject
+public partial class MainWindowViewModel : ObservableObject
 {
-    // Explicitly defined constructor
-    // private readonly BirdSearchService _birdSearchService;
-    //
-    // public MainWindowViewModel(BirdSearchService birdSearchService)
-    // {
-    //     _birdSearchService = birdSearchService;
-    // }
-
     private string _imageBasePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets");
-
-    #region Constructors
-
-    /// <summary>
-    /// Constructor for design-time - unused at runtime
-    /// </summary>
-    public MainWindowViewModel() : this(null!)
-    {
-    }
-
-    #endregion
+    private readonly BirdSearchService _birdSearchService;
+    private bool _isInitialized;
 
     #region Properties
 
@@ -40,10 +26,35 @@ public partial class MainWindowViewModel(BirdSearchService birdSearchService) : 
     [ObservableProperty]
     public partial string QueryText { get; set; } = string.Empty;
 
+    [ObservableProperty]
+    public partial ObservableCollection<object> NavigationItems { get; set; } = [];
+
     public string ImagePath => Path.Combine(_imageBasePath, SelectedBird?.ScientificName ?? string.Empty, "0.jpg");
 
     public string MapPath =>
         Path.Combine(_imageBasePath, "Maps", (SelectedBird?.ScientificName ?? string.Empty) + ".png");
+
+    #endregion
+
+    #region Constructors
+
+    /// <summary>
+    /// Constructor for design-time - unused at runtime
+    /// </summary>
+    public MainWindowViewModel() : this(null!, null!)
+    {
+    }
+
+    /// <inheritdoc/>
+    public MainWindowViewModel(BirdSearchService birdSearchService, INavigationService navigationService)
+    {
+        _birdSearchService = birdSearchService;
+        
+        if (!_isInitialized)
+        {
+
+        }
+    }
 
     #endregion
 
@@ -57,13 +68,15 @@ public partial class MainWindowViewModel(BirdSearchService birdSearchService) : 
 
     public async Task SearchByCommonNameAsync()
     {
-        BirdList = new ObservableCollection<Species>(await birdSearchService.SearchSpeciesByCommonNameAsync(QueryText));
+        BirdList = new ObservableCollection<Species>(
+            await _birdSearchService.SearchSpeciesByCommonNameAsync(QueryText)
+        );
     }
 
     public async Task SearchByScientificNameAsync()
     {
         BirdList = new ObservableCollection<Species>(
-            await birdSearchService.SearchSpeciesByScientificNameAsync(QueryText)
+            await _birdSearchService.SearchSpeciesByScientificNameAsync(QueryText)
         );
     }
 

@@ -13,10 +13,10 @@
     <Grid>
         <ui:TextBox
             Margin="0"
-            Padding="5"
-            PlaceholderText="Search"
+            PlaceholderText="Search for a bird..."
             Text="{Binding SearchText, ElementName=SearchBoxControl, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
             TextChanged="PartTextBox_OnTextChanged"
+            VerticalContentAlignment="Center"
             x:Name="PartTextBox" />
 
         <Popup
